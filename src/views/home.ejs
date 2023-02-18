@@ -1,0 +1,102 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<style>
+  .table-container {
+    padding: 15px 20px;
+  }
+
+  .title {
+    font-size: 25px;
+    font-weight: 600;
+    padding-bottom: 10px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:hover {
+    background-color: #ccc;
+  }
+</style>
+
+<body>
+  <div class="topnav">
+    <a class="active" href="/">Home</a>
+    <a href="/create">Create User</a>
+  </div>
+  <div class="table-container">
+    <div class="title">List Users</div>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>Actions</th>
+      </tr>
+      <!-- <% for (let i=0; i < listUsers.length; i++) { %>
+        <tr>
+          <td>
+            <%=listUsers[i].id %>
+          </td>
+          <td>
+            <%=listUsers[i].email %>
+          </td>
+          <td>
+            <%=listUsers[i].name %>
+          </td>
+          <td>
+            <%=listUsers[i].city %>
+          </td>
+          <td>
+            <button>Delete</button>
+            <button>Edit</button>
+          </td>
+        </tr>
+        <% } %> -->
+
+      <% listUsers.forEach(function(user,index) { %>
+        <tr>
+          <td>
+            <%=user.id %>
+          </td>
+          <td>
+            <%=user.email %>
+          </td>
+          <td>
+            <%=user.name %>
+          </td>
+          <td>
+            <%=user.city %>
+          </td>
+          <td>
+            <a href="/update/<%=user.id %>">Edit</a>
+            <form action="/delete-user/<%=user.id %>" method="POST">
+              <button>Delete</button>
+            </form>
+
+
+          </td>
+        </tr>
+        <% }); %>
+    </table>
+  </div>
+</body>
+
+</html>
