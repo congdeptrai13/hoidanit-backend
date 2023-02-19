@@ -1,20 +1,23 @@
 const mongoose = require("mongoose");
+const mongoose_delete = require('mongoose-delete');
+
 //shape data
-const customerSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    require: true
+const customerSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true
+    },
+    address: String,
+    phone: String,
+    email: String,
+    image: String,
+    description: String,
+
   },
-  address: String,
-  phone: String,
-  email: String,
-  image: String,
-  description: String,
-
-},
-  { timetamps: true }
+  { timestamps: true }
 );
-
+customerSchema.plugin(mongoose_delete);
 const Customer = mongoose.model('customer', customerSchema);
 
 module.exports = Customer;
