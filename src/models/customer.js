@@ -15,7 +15,14 @@ const customerSchema = new mongoose.Schema(
     description: String,
 
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    // statics: {
+    //   findByHoiDanIT(name) {
+    //     return this.find({ name: new RegExp(name, 'i') });
+    //   }
+    // }
+  }
 );
 customerSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 const Customer = mongoose.model('customer', customerSchema);

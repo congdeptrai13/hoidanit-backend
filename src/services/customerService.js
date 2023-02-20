@@ -1,4 +1,5 @@
 const Customer = require("../models/customer");
+const aqp = require('api-query-params');
 
 const createCustomerService = async (customerData) => {
   console.log("check customerData:", customerData);
@@ -28,9 +29,19 @@ const createArrayCustomerService = async (arr) => {
     return null;
   }
 }
-const getAllCustomerService = async () => {
+const getAllCustomerService = async (limit, page, name, queryString) => {
   try {
-    let result = Customer.find({});
+    let result = null;
+    if (page && limit) {
+      let offset = (page - 1) * limit;
+
+      const { filter, skip } = aqp(queryString);
+      delete filter.page;
+      console.log("check filter", filter);
+      return result = await Customer.find(filter).skip(offset).limit(limit).exec();
+    } else {
+      result = Customer.find({});
+    }
     return result;
   } catch (error) {
     console.log("error>>>:", error);
@@ -50,8 +61,19 @@ const putUpdateCustomerService = async (id, name, email, address) => {
 
 const deleteACustomerService = async (id) => {
   try {
-    let result = await Customer.deleteById(id);
+    let result = await Customer.find(id);
     return result;
+  } catch (error) {
+    console.log("Error>>>", error);
+    return null;
+  }
+}
+
+const deleteArrayCustomerService = async (arrId) => {
+  try {
+    let result = await Customer.delete({ _id: { $in: arrId } });
+    return result;
+
   } catch (error) {
     console.log("Error>>>", error);
     return null;
@@ -62,5 +84,6 @@ module.exports = {
   createArrayCustomerService,
   getAllCustomerService,
   putUpdateCustomerService,
-  deleteACustomerService
+  deleteACustomerService,
+  deleteArrayCustomerService
 }
