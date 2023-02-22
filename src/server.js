@@ -31,31 +31,27 @@ app.use("/v1/api", apiRoutes);
 ; (async () => {
   try {
     //using mongoose
-    // await connection();
+    await connection();
     //using mongodb driver
     // Connection URL
-    const url = process.env.DB_HOST_WITH_DRIVER;
-    const client = new MongoClient(url);
+    // const url = process.env.DB_HOST_WITH_DRIVER;
+    // const client = new MongoClient(url);
 
-    // Database Name
-    const dbName = process.env.DB_NAME;
+    // // Database Name
+    // const dbName = process.env.DB_NAME;
 
-    await client.connect();
-    console.log('Connected successfully to server');
-    const db = client.db(dbName);
-    const collection = db.collection('customers');
-
-    collection.insertOne({
-      name: "hoi dan it",
-      address:
-        [{
-          province: 'hn',
-          country: {
-            name: 'vietnam',
-            code: 10000
-          }
-        }]
-    })
+    // await client.connect();
+    // console.log('Connected successfully to server');
+    // const db = client.db(dbName);
+    // const collection = db.collection('customers');
+    // {
+    //   id: 1,
+    //     province: 'hn',
+    //       country: {
+    //     name: 'vietnam',
+    //       code: 10000
+    //   }
+    // }
 
     app.listen(port, hostname, () => {
       console.log(`backend zero app listening on port ${port}`)
