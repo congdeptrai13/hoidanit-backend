@@ -25,6 +25,14 @@ const createProjectService = async (data) => {
       let newResult = await myProject.save();
       return newResult;
     }
+    if (data.type === "ADD-TASKS") {
+      let myProject = await Project.findById(data.projectId).exec();
+      for (let i = 0; i < data.taskArr.length; i++) {
+        myProject.tasks.push(data.taskArr[i]);
+      }
+      let newResult = await myProject.save();
+      return newResult;
+    }
     return null;
   } catch (error) {
     console.log("error: ", error);
